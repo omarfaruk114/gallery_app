@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gallery/gallery_details.dart';
+import 'package:gallery/grid_view_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +27,8 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
+double containerHeight = 90;
+double containerWidth = 90;
 List<String> imgList=[
   "assets/image/img001.jpg",
   "assets/image/img002.jpg",
@@ -44,41 +48,71 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Bura"),
+        title: Text("My Picture"),
       ),
       body: Center(
         child: Expanded(
-          child: ListView.builder(
-            itemCount: imgList.length,
-              itemBuilder: (context,index){
-                return   Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      InkWell(
-                        onTap: (){
-
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 3,
-                              color: Colors.pink
-                            )
-                          ),
-                            height: 200,
-                            width: 200,
-                            child: Image.asset
-                              (imgList[index],
-                              fit: BoxFit.cover,)),
-                      ),
-                    ],
-                  ),
-                );
-              }
+          child: GridView.count(
+            crossAxisCount: 3,
+            childAspectRatio: 1,
+            children: imgList.map((item){
+              return Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: InkWell(
+                  onTap: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (Context)=>GalleryDetails(img: item)));
+                  },
+                  child: Container(
+                      height: containerHeight,
+                      width: containerWidth,
+                      child: Image.asset(item,fit: BoxFit.cover,)),
+                ),
+              );
+            }).toList(),
           ),
-        )
+        ),
       )
+
+
+      // Center(
+      //   child: Expanded(
+      //     child: ListView.builder(
+      //       itemCount: imgList.length,
+      //         itemBuilder: (context,index){
+      //           return   Padding(
+      //             padding: const EdgeInsets.all(10.0),
+      //             child: Column(
+      //               children: [
+      //                 InkWell(
+      //                   onTap: (){
+      //                     Navigator.push(context,
+      //                         MaterialPageRoute(builder:
+      //                         (Context)=>GalleryDetails
+      //                           (img: imgList[index])));
+      //                   },
+      //                   child: Container(
+      //                     decoration: BoxDecoration(
+      //                       border: Border.all(
+      //                         width: 3,
+      //                         color: Colors.pink
+      //                       )
+      //                     ),
+      //                       height: 200,
+      //                       width: 200,
+      //                       child: Image.asset
+      //                         (imgList[index],
+      //                         fit: BoxFit.cover,)),
+      //                 ),
+      //               ],
+      //             ),
+      //           );
+      //         }
+      //     ),
+      //   )
+      // )
+       ,
     );
   }
 }
