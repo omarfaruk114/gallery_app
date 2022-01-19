@@ -11,7 +11,8 @@ class _GridViewPageState extends State<GridViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
+      body:
+      Expanded(
         child: GridView.count(
           crossAxisCount: 3,
           childAspectRatio: 1,
